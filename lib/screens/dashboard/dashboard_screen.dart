@@ -26,11 +26,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
       case 'Menstruação':
         return AppColors.primaryHighlight;
       case 'Fase Folicular':
-        return AppColors.earthyHealth;
+        return AppColors.interactionHover;
       case 'Ovulação':
-        return Colors.purpleAccent;
-      case 'Fase Lútea':
         return AppColors.secondaryCycle;
+      case 'Fase Lútea':
+        return AppColors.earthyHealth;
       default:
         return Colors.transparent;
     }
@@ -204,16 +204,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         margin: const EdgeInsets.all(4.0),
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                          color: color.withOpacity(0.2),
+                          color: color.withOpacity(0.3),
                           shape: BoxShape.circle,
                         ),
                         child: Text(
                           '${day.day}',
-                          style: TextStyle(
-                              color: color
-                                  .withOpacity(1.0)
-                                  .withBlue(50)
-                                  .withRed(50),
+                          style: const TextStyle(
+                              color: AppColors.textPrimary,
                               fontWeight: FontWeight.bold),
                         ),
                       );
@@ -297,16 +294,34 @@ class _DashboardScreenState extends State<DashboardScreen> {
               ...(_dailyLogs[DateFormat('yyyy-MM-dd')
                           .format(_selectedDay ?? DateTime.now())] ??
                       [])
-                  .map((log) {
+                  .asMap()
+                  .entries
+                  .map((entry) {
+                final index = entry.key;
+                final log = entry.value;
                 return Container(
                   margin: const EdgeInsets.only(bottom: 8),
-                  padding: const EdgeInsets.all(16),
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   decoration: BoxDecoration(
                     color: AppColors.cardBackground,
                     borderRadius: BorderRadius.circular(16.0),
                     border: Border.all(color: AppColors.interactionHover),
                   ),
-                  child: Text(log, style: const TextStyle(fontSize: 14)),
+                  child: Row(
+                    children: [
+                      Expanded(child: Text(log, style: const TextStyle(fontSize: 14))),
+                      IconButton(
+                        icon: const Icon(Icons.delete_outline, color: AppColors.primaryHighlight),
+                        onPressed: () {
+                          setState(() {
+                            final dateKey = DateFormat('yyyy-MM-dd')
+                                .format(_selectedDay ?? DateTime.now());
+                            _dailyLogs[dateKey]?.removeAt(index);
+                          });
+                        },
+                      ),
+                    ],
+                  ),
                 );
               }),
               if ((_dailyLogs[DateFormat('yyyy-MM-dd')
