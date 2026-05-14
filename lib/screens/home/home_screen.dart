@@ -25,13 +25,20 @@ class _HomeScreenState extends State<HomeScreen> {
 
   IconData _getIconForCategory(String category) {
     switch (category) {
-      case 'Saúde Menstrual': return Icons.water_drop;
-      case 'Gestação': return Icons.pregnant_woman;
-      case 'Saúde Mental': return Icons.psychology;
-      case 'Pré-natal': return Icons.health_and_safety;
-      case 'Câncer de Mama': return Icons.volunteer_activism;
-      case 'Menopausa': return Icons.spa;
-      default: return Icons.category;
+      case 'Saúde Menstrual':
+        return Icons.water_drop;
+      case 'Gestação':
+        return Icons.pregnant_woman;
+      case 'Saúde Mental':
+        return Icons.psychology;
+      case 'Pré-natal':
+        return Icons.health_and_safety;
+      case 'Câncer de Mama':
+        return Icons.volunteer_activism;
+      case 'Menopausa':
+        return Icons.spa;
+      default:
+        return Icons.category;
     }
   }
 
@@ -40,11 +47,13 @@ class _HomeScreenState extends State<HomeScreen> {
       context: context,
       builder: (context) => AlertDialog(
         title: Text(title),
-        content: Text('Aqui estão as informações detalhadas sobre $title. Estas informações são personalizadas para o seu momento.'),
+        content: Text(
+            'Aqui estão as informações detalhadas sobre $title. Estas informações são personalizadas para o seu momento.'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Fechar', style: TextStyle(color: AppColors.primaryHighlight)),
+            child: const Text('Fechar',
+                style: TextStyle(color: AppColors.primaryHighlight)),
           ),
         ],
       ),
@@ -53,55 +62,54 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _showProfileEditDialog(BuildContext context, UserProvider userProvider) {
     final nameController = TextEditingController(text: userProvider.name);
-    UserProfileType selectedProfile = userProvider.profile;
+    UserProfileType selectedProfile = userProvider.profile ?? UserProfileType.adolescente;
 
     showDialog(
       context: context,
       builder: (context) {
-        return StatefulBuilder(
-          builder: (context, setState) {
-            return AlertDialog(
-              title: const Text('Editar Perfil'),
-              content: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  TextField(
-                    controller: nameController,
-                    decoration: const InputDecoration(labelText: 'Nome'),
-                  ),
-                  const SizedBox(height: 16),
-                  DropdownButton<UserProfileType>(
-                    value: selectedProfile,
-                    isExpanded: true,
-                    items: UserProfileType.values.map((profile) {
-                      return DropdownMenuItem(
-                        value: profile,
-                        child: Text(profile.toString().split('.').last.toUpperCase()),
-                      );
-                    }).toList(),
-                    onChanged: (val) {
-                      if (val != null) setState(() => selectedProfile = val);
-                    },
-                  ),
-                ],
-              ),
-              actions: [
-                TextButton(
-                  onPressed: () => Navigator.pop(context),
-                  child: const Text('Cancelar'),
+        return StatefulBuilder(builder: (context, setState) {
+          return AlertDialog(
+            title: const Text('Editar Perfil'),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextField(
+                  controller: nameController,
+                  decoration: const InputDecoration(labelText: 'Nome'),
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    userProvider.updateUserInfo(name: nameController.text);
-                    userProvider.updateProfile(selectedProfile);
-                    Navigator.pop(context);
+                const SizedBox(height: 16),
+                DropdownButton<UserProfileType>(
+                  value: selectedProfile,
+                  isExpanded: true,
+                  items: UserProfileType.values.map((profile) {
+                    return DropdownMenuItem(
+                      value: profile,
+                      child: Text(
+                          profile.toString().split('.').last.toUpperCase()),
+                    );
+                  }).toList(),
+                  onChanged: (val) {
+                    if (val != null) setState(() => selectedProfile = val);
                   },
-                  child: const Text('Salvar'),
                 ),
               ],
-            );
-          }
-        );
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text('Cancelar'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  userProvider.updateUserInfo(name: nameController.text);
+                  userProvider.updateProfile(selectedProfile);
+                  Navigator.pop(context);
+                },
+                child: const Text('Salvar'),
+              ),
+            ],
+          );
+        });
       },
     );
   }
@@ -109,7 +117,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final userProvider = context.watch<UserProvider>();
-    
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -126,14 +134,17 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       Text(
                         'Olá, ${userProvider.name.isEmpty ? "Amiga" : userProvider.name}',
-                        style: Theme.of(context).textTheme.displayLarge?.copyWith(fontSize: 24),
+                        style: Theme.of(context)
+                            .textTheme
+                            .displayLarge
+                            ?.copyWith(fontSize: 24),
                       ),
                       Text(
                         'Modo: ${userProvider.getProfileName()}',
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: AppColors.secondaryCycle,
-                          fontWeight: FontWeight.w600,
-                        ),
+                              color: AppColors.secondaryCycle,
+                              fontWeight: FontWeight.w600,
+                            ),
                       ),
                     ],
                   ),
@@ -141,16 +152,18 @@ class _HomeScreenState extends State<HomeScreen> {
                     onTap: () => _showProfileEditDialog(context, userProvider),
                     child: const CircleAvatar(
                       backgroundColor: AppColors.interactionHover,
-                      child: Icon(Icons.person, color: AppColors.primaryHighlight),
+                      child:
+                          Icon(Icons.person, color: AppColors.primaryHighlight),
                     ),
                   ),
                 ],
               ),
               const SizedBox(height: 24),
-              TextField(
+              const TextField(
                 decoration: InputDecoration(
                   hintText: 'Buscar artigos, dicas...',
-                  prefixIcon: const Icon(Icons.search, color: AppColors.primaryHighlight),
+                  prefixIcon:
+                      Icon(Icons.search, color: AppColors.primaryHighlight),
                   fillColor: AppColors.cardBackground,
                   filled: true,
                 ),
@@ -166,16 +179,17 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 child: Row(
                   children: [
-                    const Icon(Icons.format_quote, color: AppColors.primaryHighlight, size: 40),
+                    const Icon(Icons.format_quote,
+                        color: AppColors.primaryHighlight, size: 40),
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
                         '"Cuide do seu corpo, é o único lugar que você tem para viver."',
                         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                          color: AppColors.primaryHighlight,
-                          fontWeight: FontWeight.w600,
-                          fontStyle: FontStyle.italic,
-                        ),
+                              color: AppColors.primaryHighlight,
+                              fontWeight: FontWeight.w600,
+                              fontStyle: FontStyle.italic,
+                            ),
                       ),
                     ),
                   ],
@@ -186,7 +200,10 @@ class _HomeScreenState extends State<HomeScreen> {
               // Dynamic Carousel
               Text(
                 'Para o seu momento',
-                style: Theme.of(context).textTheme.titleLarge?.copyWith(fontSize: 20),
+                style: Theme.of(context)
+                    .textTheme
+                    .titleLarge
+                    ?.copyWith(fontSize: 20),
               ),
               const SizedBox(height: 16),
               SizedBox(
@@ -199,7 +216,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       subtitle: 'Como melhorar o sono',
                       color: AppColors.secondaryCycle,
                       icon: Icons.nights_stay,
-                      onTap: () => _showCategoryInfo(context, 'Dica do Dia: Como melhorar o sono'),
+                      onTap: () => _showCategoryInfo(
+                          context, 'Dica do Dia: Como melhorar o sono'),
                     ),
                     const SizedBox(width: 16),
                     _CarouselCard(
@@ -207,7 +225,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       subtitle: 'Alimentos para a fase lútea',
                       color: AppColors.earthyHealth,
                       icon: Icons.restaurant,
-                      onTap: () => _showCategoryInfo(context, 'Alimentação: Alimentos para a fase lútea'),
+                      onTap: () => _showCategoryInfo(
+                          context, 'Alimentação: Alimentos para a fase lútea'),
                     ),
                     const SizedBox(width: 16),
                     _CarouselCard(
@@ -215,7 +234,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       subtitle: 'Yoga suave',
                       color: AppColors.primaryHighlight,
                       icon: Icons.self_improvement,
-                      onTap: () => _showCategoryInfo(context, 'Exercício: Yoga suave'),
+                      onTap: () =>
+                          _showCategoryInfo(context, 'Exercício: Yoga suave'),
                     ),
                   ],
                 ),
@@ -226,7 +246,10 @@ class _HomeScreenState extends State<HomeScreen> {
               if (_favorites.isNotEmpty) ...[
                 Text(
                   'Meus Favoritos',
-                  style: Theme.of(context).textTheme.titleLarge?.copyWith(fontSize: 20),
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleLarge
+                      ?.copyWith(fontSize: 20),
                 ),
                 const SizedBox(height: 16),
                 SizedBox(
@@ -258,7 +281,10 @@ class _HomeScreenState extends State<HomeScreen> {
               // Categories Grid
               Text(
                 'Categorias',
-                style: Theme.of(context).textTheme.titleLarge?.copyWith(fontSize: 20),
+                style: Theme.of(context)
+                    .textTheme
+                    .titleLarge
+                    ?.copyWith(fontSize: 20),
               ),
               const SizedBox(height: 16),
               GridView.count(
@@ -269,12 +295,42 @@ class _HomeScreenState extends State<HomeScreen> {
                 crossAxisSpacing: 16,
                 childAspectRatio: 1.2,
                 children: [
-                  _CategoryCard('Saúde Menstrual', Icons.water_drop, _favorites.contains('Saúde Menstrual'), () => _toggleFavorite('Saúde Menstrual'), () => _showCategoryInfo(context, 'Saúde Menstrual')),
-                  _CategoryCard('Gestação', Icons.pregnant_woman, _favorites.contains('Gestação'), () => _toggleFavorite('Gestação'), () => _showCategoryInfo(context, 'Gestação')),
-                  _CategoryCard('Saúde Mental', Icons.psychology, _favorites.contains('Saúde Mental'), () => _toggleFavorite('Saúde Mental'), () => _showCategoryInfo(context, 'Saúde Mental')),
-                  _CategoryCard('Pré-natal', Icons.health_and_safety, _favorites.contains('Pré-natal'), () => _toggleFavorite('Pré-natal'), () => _showCategoryInfo(context, 'Pré-natal')),
-                  _CategoryCard('Câncer de Mama', Icons.volunteer_activism, _favorites.contains('Câncer de Mama'), () => _toggleFavorite('Câncer de Mama'), () => _showCategoryInfo(context, 'Câncer de Mama')),
-                  _CategoryCard('Menopausa', Icons.spa, _favorites.contains('Menopausa'), () => _toggleFavorite('Menopausa'), () => _showCategoryInfo(context, 'Menopausa')),
+                  _CategoryCard(
+                      'Saúde Menstrual',
+                      Icons.water_drop,
+                      _favorites.contains('Saúde Menstrual'),
+                      () => _toggleFavorite('Saúde Menstrual'),
+                      () => _showCategoryInfo(context, 'Saúde Menstrual')),
+                  _CategoryCard(
+                      'Gestação',
+                      Icons.pregnant_woman,
+                      _favorites.contains('Gestação'),
+                      () => _toggleFavorite('Gestação'),
+                      () => _showCategoryInfo(context, 'Gestação')),
+                  _CategoryCard(
+                      'Saúde Mental',
+                      Icons.psychology,
+                      _favorites.contains('Saúde Mental'),
+                      () => _toggleFavorite('Saúde Mental'),
+                      () => _showCategoryInfo(context, 'Saúde Mental')),
+                  _CategoryCard(
+                      'Pré-natal',
+                      Icons.health_and_safety,
+                      _favorites.contains('Pré-natal'),
+                      () => _toggleFavorite('Pré-natal'),
+                      () => _showCategoryInfo(context, 'Pré-natal')),
+                  _CategoryCard(
+                      'Câncer de Mama',
+                      Icons.volunteer_activism,
+                      _favorites.contains('Câncer de Mama'),
+                      () => _toggleFavorite('Câncer de Mama'),
+                      () => _showCategoryInfo(context, 'Câncer de Mama')),
+                  _CategoryCard(
+                      'Menopausa',
+                      Icons.spa,
+                      _favorites.contains('Menopausa'),
+                      () => _toggleFavorite('Menopausa'),
+                      () => _showCategoryInfo(context, 'Menopausa')),
                 ],
               ),
             ],
@@ -305,38 +361,42 @@ class _CarouselCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-      width: 240,
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.circular(24.0),
-        boxShadow: [
-          BoxShadow(
-            color: color.withOpacity(0.3),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
+        width: 240,
+        padding: const EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.circular(24.0),
+          boxShadow: [
+            BoxShadow(
+              color: color.withOpacity(0.3),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(icon, color: Colors.white, size: 32),
+            const Spacer(),
+            Text(
+              title,
+              style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16),
+            ),
+            const SizedBox(height: 4),
+            Text(
+              subtitle,
+              style:
+                  TextStyle(color: Colors.white.withOpacity(0.8), fontSize: 14),
+            ),
+          ],
+        ),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(icon, color: Colors.white, size: 32),
-          const Spacer(),
-          Text(
-            title,
-            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            subtitle,
-            style: TextStyle(color: Colors.white.withOpacity(0.8), fontSize: 14),
-          ),
-        ],
-      ),
-    ),
-   );
+    );
   }
 }
 
@@ -347,7 +407,8 @@ class _CategoryCard extends StatelessWidget {
   final VoidCallback onFavoriteTap;
   final VoidCallback onCardTap;
 
-  const _CategoryCard(this.title, this.icon, this.isFavorite, this.onFavoriteTap, this.onCardTap);
+  const _CategoryCard(this.title, this.icon, this.isFavorite,
+      this.onFavoriteTap, this.onCardTap);
 
   @override
   Widget build(BuildContext context) {
@@ -366,40 +427,46 @@ class _CategoryCard extends StatelessWidget {
             ),
           ],
         ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                padding: const EdgeInsets.all(8),
-                decoration: const BoxDecoration(
-                  color: AppColors.interactionHover,
-                  shape: BoxShape.circle,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: const BoxDecoration(
+                    color: AppColors.interactionHover,
+                    shape: BoxShape.circle,
+                  ),
+                  child:
+                      Icon(icon, color: AppColors.primaryHighlight, size: 24),
                 ),
-                child: Icon(icon, color: AppColors.primaryHighlight, size: 24),
-              ),
-              GestureDetector(
-                onTap: onFavoriteTap,
-                child: Icon(
-                  isFavorite ? Icons.favorite : Icons.favorite_border,
-                  color: isFavorite ? AppColors.primaryHighlight : AppColors.textSecondary,
-                  size: 24,
+                GestureDetector(
+                  onTap: onFavoriteTap,
+                  child: Icon(
+                    isFavorite ? Icons.favorite : Icons.favorite_border,
+                    color: isFavorite
+                        ? AppColors.primaryHighlight
+                        : AppColors.textSecondary,
+                    size: 24,
+                  ),
                 ),
-              ),
-            ],
-          ),
-          const Spacer(),
-          Text(
-            title,
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(fontSize: 14),
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-          ),
-        ],
+              ],
+            ),
+            const Spacer(),
+            Text(
+              title,
+              style: Theme.of(context)
+                  .textTheme
+                  .titleLarge
+                  ?.copyWith(fontSize: 14),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ],
+        ),
       ),
-    ),
-   );
+    );
   }
 }

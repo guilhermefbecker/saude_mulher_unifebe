@@ -20,10 +20,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   void _submit() {
     if (_nameController.text.isNotEmpty) {
       context.read<UserProvider>().updateUserInfo(
-        name: _nameController.text,
-        email: _emailController.text,
-        age: int.tryParse(_ageController.text) ?? 0,
-      );
+            name: _nameController.text,
+            email: _emailController.text,
+            age: int.tryParse(_ageController.text) ?? 0,
+          );
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const ProfileSelectorScreen()),
@@ -41,7 +41,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const SizedBox(height: 40),
-              Icon(
+              const Icon(
                 Icons.favorite,
                 size: 80,
                 color: AppColors.primaryHighlight,
@@ -49,7 +49,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               const SizedBox(height: 24),
               Text(
                 'Bem-vinda ao\nMinha Saúde Feminina',
-                style: Theme.of(context).textTheme.displayLarge?.copyWith(fontSize: 28),
+                style: Theme.of(context)
+                    .textTheme
+                    .displayLarge
+                    ?.copyWith(fontSize: 28),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 16),

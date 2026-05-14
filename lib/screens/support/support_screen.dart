@@ -9,7 +9,8 @@ class SupportScreen extends StatelessWidget {
       context: context,
       builder: (context) => AlertDialog(
         title: Text(title),
-        content: Text(description + '\n\n(Conteúdo detalhado será carregado aqui)'),
+        content:
+            Text('$description\n\n(Conteúdo detalhado será carregado aqui)'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
@@ -31,14 +32,20 @@ class SupportScreen extends StatelessWidget {
             children: [
               Text(
                 'Apoio e Trilhas',
-                style: Theme.of(context).textTheme.displayLarge?.copyWith(fontSize: 24),
+                style: Theme.of(context)
+                    .textTheme
+                    .displayLarge
+                    ?.copyWith(fontSize: 24),
               ),
               const SizedBox(height: 24),
 
               // Trilhas de Aprendizado
               Text(
                 'Trilhas de Aprendizado',
-                style: Theme.of(context).textTheme.titleLarge?.copyWith(fontSize: 20),
+                style: Theme.of(context)
+                    .textTheme
+                    .titleLarge
+                    ?.copyWith(fontSize: 20),
               ),
               const SizedBox(height: 16),
               SizedBox(
@@ -52,7 +59,10 @@ class SupportScreen extends StatelessWidget {
                       color: AppColors.earthyHealth,
                       icon: Icons.pregnant_woman,
                       progress: 0.3,
-                      onTap: () => _showInfoDialog(context, 'Trilha da Gestante', 'O que esperar em cada trimestre.'),
+                      onTap: () => _showInfoDialog(
+                          context,
+                          'Trilha da Gestante',
+                          'O que esperar em cada trimestre.'),
                     ),
                     const SizedBox(width: 16),
                     _PathCard(
@@ -61,7 +71,10 @@ class SupportScreen extends StatelessWidget {
                       color: AppColors.primaryHighlight,
                       icon: Icons.water_drop,
                       progress: 0.8,
-                      onTap: () => _showInfoDialog(context, 'Conhecendo meu Ciclo', 'Do primeiro dia à próxima fase.'),
+                      onTap: () => _showInfoDialog(
+                          context,
+                          'Conhecendo meu Ciclo',
+                          'Do primeiro dia à próxima fase.'),
                     ),
                     const SizedBox(width: 16),
                     _PathCard(
@@ -70,7 +83,8 @@ class SupportScreen extends StatelessWidget {
                       color: AppColors.secondaryCycle,
                       icon: Icons.spa,
                       progress: 0.0,
-                      onTap: () => _showInfoDialog(context, 'Menopausa com Saúde', 'Cuidados e bem-estar.'),
+                      onTap: () => _showInfoDialog(context,
+                          'Menopausa com Saúde', 'Cuidados e bem-estar.'),
                     ),
                   ],
                 ),
@@ -80,17 +94,21 @@ class SupportScreen extends StatelessWidget {
               // Rede de Cuidado
               Text(
                 'Rede de Cuidado (Emergência)',
-                style: Theme.of(context).textTheme.titleLarge?.copyWith(fontSize: 20),
+                style: Theme.of(context)
+                    .textTheme
+                    .titleLarge
+                    ?.copyWith(fontSize: 20),
               ),
               const SizedBox(height: 16),
-              
+
               _ContactCard(
                 title: 'Disque Saúde',
                 number: '136',
                 description: 'Ouvidoria Geral do SUS',
                 icon: Icons.health_and_safety,
                 color: AppColors.primaryHighlight,
-                onTap: () => _showInfoDialog(context, 'Disque Saúde', 'Ouvidoria Geral do SUS (136)'),
+                onTap: () => _showInfoDialog(
+                    context, 'Disque Saúde', 'Ouvidoria Geral do SUS (136)'),
               ),
               const SizedBox(height: 16),
               _ContactCard(
@@ -99,7 +117,10 @@ class SupportScreen extends StatelessWidget {
                 description: 'Apoio emocional e prevenção do suicídio',
                 icon: Icons.favorite,
                 color: AppColors.secondaryCycle,
-                onTap: () => _showInfoDialog(context, 'CVV - Valorização da Vida', 'Apoio emocional e prevenção do suicídio (188)'),
+                onTap: () => _showInfoDialog(
+                    context,
+                    'CVV - Valorização da Vida',
+                    'Apoio emocional e prevenção do suicídio (188)'),
               ),
               const SizedBox(height: 16),
               _ContactCard(
@@ -108,7 +129,10 @@ class SupportScreen extends StatelessWidget {
                 description: 'Apoio à violência contra a mulher',
                 icon: Icons.shield,
                 color: AppColors.earthyHealth,
-                onTap: () => _showInfoDialog(context, 'Central de Atendimento à Mulher', 'Apoio à violência contra a mulher (180)'),
+                onTap: () => _showInfoDialog(
+                    context,
+                    'Central de Atendimento à Mulher',
+                    'Apoio à violência contra a mulher (180)'),
               ),
               const SizedBox(height: 16),
               _ContactCard(
@@ -118,7 +142,8 @@ class SupportScreen extends StatelessWidget {
                 icon: Icons.local_hospital,
                 color: Colors.blueAccent,
                 isMap: true,
-                onTap: () => _showInfoDialog(context, 'Encontrar UBS mais próxima', 'Unidade Básica de Saúde'),
+                onTap: () => _showInfoDialog(context,
+                    'Encontrar UBS mais próxima', 'Unidade Básica de Saúde'),
               ),
             ],
           ),
@@ -163,45 +188,52 @@ class _PathCard extends StatelessWidget {
             ),
           ],
         ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: color.withOpacity(0.1),
-                  shape: BoxShape.circle,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: color.withOpacity(0.1),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(icon, color: color, size: 28),
                 ),
-                child: Icon(icon, color: color, size: 28),
-              ),
-              const Spacer(),
-              Icon(Icons.arrow_forward_ios, color: AppColors.textSecondary.withOpacity(0.5), size: 16),
-            ],
-          ),
-          const Spacer(),
-          Text(
-            title,
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(fontSize: 18),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            subtitle,
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 14),
-          ),
-          const SizedBox(height: 16),
-          LinearProgressIndicator(
-            value: progress,
-            backgroundColor: AppColors.interactionHover,
-            valueColor: AlwaysStoppedAnimation<Color>(color),
-            borderRadius: BorderRadius.circular(8.0),
-            minHeight: 6,
-          ),
-        ],
+                const Spacer(),
+                Icon(Icons.arrow_forward_ios,
+                    color: AppColors.textSecondary.withOpacity(0.5), size: 16),
+              ],
+            ),
+            const Spacer(),
+            Text(
+              title,
+              style: Theme.of(context)
+                  .textTheme
+                  .titleLarge
+                  ?.copyWith(fontSize: 18),
+            ),
+            const SizedBox(height: 4),
+            Text(
+              subtitle,
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyMedium
+                  ?.copyWith(fontSize: 14),
+            ),
+            const SizedBox(height: 16),
+            LinearProgressIndicator(
+              value: progress,
+              backgroundColor: AppColors.interactionHover,
+              valueColor: AlwaysStoppedAnimation<Color>(color),
+              borderRadius: BorderRadius.circular(8.0),
+              minHeight: 6,
+            ),
+          ],
+        ),
       ),
-    ),
-   );
+    );
   }
 }
 
@@ -241,56 +273,65 @@ class _ContactCard extends StatelessWidget {
             ),
           ],
         ),
-      child: Row(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: color.withOpacity(0.1),
-              shape: BoxShape.circle,
+        child: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: color.withOpacity(0.1),
+                shape: BoxShape.circle,
+              ),
+              child: Icon(icon, color: color, size: 28),
             ),
-            child: Icon(icon, color: color, size: 28),
-          ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: Theme.of(context).textTheme.titleLarge?.copyWith(fontSize: 16),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  description,
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 12),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            decoration: BoxDecoration(
-              color: isMap ? color.withOpacity(0.1) : AppColors.primaryHighlight,
-              borderRadius: BorderRadius.circular(16.0),
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(isMap ? Icons.map : Icons.phone, color: isMap ? color : Colors.white, size: 16),
-                if (!isMap) ...[
-                  const SizedBox(width: 8),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
                   Text(
-                    number,
-                    style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                    title,
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleLarge
+                        ?.copyWith(fontSize: 16),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    description,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyMedium
+                        ?.copyWith(fontSize: 12),
                   ),
                 ],
-              ],
+              ),
             ),
-          ),
-        ],
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              decoration: BoxDecoration(
+                color:
+                    isMap ? color.withOpacity(0.1) : AppColors.primaryHighlight,
+                borderRadius: BorderRadius.circular(16.0),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(isMap ? Icons.map : Icons.phone,
+                      color: isMap ? color : Colors.white, size: 16),
+                  if (!isMap) ...[
+                    const SizedBox(width: 8),
+                    Text(
+                      number,
+                      style: const TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
-    ),
-   );
+    );
   }
 }

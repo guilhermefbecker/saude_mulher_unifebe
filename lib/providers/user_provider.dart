@@ -11,12 +11,12 @@ class UserProvider extends ChangeNotifier {
   String _name = '';
   String _email = '';
   int _age = 0;
-  UserProfileType _profile = UserProfileType.adolescente;
+  UserProfileType? _profile;
 
   String get name => _name;
   String get email => _email;
   int get age => _age;
-  UserProfileType get profile => _profile;
+  UserProfileType? get profile => _profile;
 
   void updateUserInfo({String? name, String? email, int? age}) {
     if (name != null) _name = name;
@@ -40,6 +40,8 @@ class UserProvider extends ChangeNotifier {
         return "Tentante";
       case UserProfileType.menopausa:
         return "Menopausa";
+      default:
+        return "Não definido";
     }
   }
 }

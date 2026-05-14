@@ -23,11 +23,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   Color _getColorForPhase(String phase) {
     switch (phase) {
-      case 'Menstruação': return AppColors.primaryHighlight;
-      case 'Fase Folicular': return AppColors.earthyHealth;
-      case 'Ovulação': return Colors.purpleAccent;
-      case 'Fase Lútea': return AppColors.secondaryCycle;
-      default: return Colors.transparent;
+      case 'Menstruação':
+        return AppColors.primaryHighlight;
+      case 'Fase Folicular':
+        return AppColors.earthyHealth;
+      case 'Ovulação':
+        return Colors.purpleAccent;
+      case 'Fase Lútea':
+        return AppColors.secondaryCycle;
+      default:
+        return Colors.transparent;
     }
   }
 
@@ -41,7 +46,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   void _showLogDialog(BuildContext context, String logType) {
     final TextEditingController annotationController = TextEditingController();
-    
+
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -49,7 +54,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text('Anotação para o dia ${DateFormat("dd/MM/yyyy").format(_selectedDay ?? DateTime.now())}:'),
+            Text(
+                'Anotação para o dia ${DateFormat("dd/MM/yyyy").format(_selectedDay ?? DateTime.now())}:'),
             const SizedBox(height: 16),
             TextField(
               controller: annotationController,
@@ -69,12 +75,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
           ElevatedButton(
             onPressed: () {
               if (annotationController.text.isNotEmpty) {
-                final dateKey = DateFormat('yyyy-MM-dd').format(_selectedDay ?? DateTime.now());
+                final dateKey = DateFormat('yyyy-MM-dd')
+                    .format(_selectedDay ?? DateTime.now());
                 setState(() {
                   if (!_dailyLogs.containsKey(dateKey)) {
                     _dailyLogs[dateKey] = [];
                   }
-                  _dailyLogs[dateKey]!.add('[$logType] ${annotationController.text}');
+                  _dailyLogs[dateKey]!
+                      .add('[$logType] ${annotationController.text}');
                 });
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(content: Text('$logType registrado com sucesso!')),
@@ -100,7 +108,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
             children: [
               Text(
                 'Meu Ciclo',
-                style: Theme.of(context).textTheme.displayLarge?.copyWith(fontSize: 24),
+                style: Theme.of(context)
+                    .textTheme
+                    .displayLarge
+                    ?.copyWith(fontSize: 24),
               ),
               const SizedBox(height: 24),
 
@@ -109,7 +120,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 padding: const EdgeInsets.all(24),
                 decoration: BoxDecoration(
                   gradient: const LinearGradient(
-                    colors: [AppColors.secondaryCycle, AppColors.interactionHover],
+                    colors: [
+                      AppColors.secondaryCycle,
+                      AppColors.interactionHover
+                    ],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
@@ -119,17 +133,22 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      DateFormat("EEEE, d 'de' MMMM", "pt_BR").format(_selectedDay ?? DateTime.now()),
+                      DateFormat("EEEE, d 'de' MMMM", "pt_BR")
+                          .format(_selectedDay ?? DateTime.now()),
                       style: const TextStyle(color: Colors.white, fontSize: 14),
                     ),
                     const SizedBox(height: 8),
                     Text(
                       _getPhaseForDay(_selectedDay ?? DateTime.now()),
-                      style: const TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
+                      style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 16),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12, vertical: 8),
                       decoration: BoxDecoration(
                         color: Colors.white.withOpacity(0.2),
                         borderRadius: BorderRadius.circular(12),
@@ -137,7 +156,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       child: const Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Icon(Icons.lightbulb_outline, color: Colors.white, size: 16),
+                          Icon(Icons.lightbulb_outline,
+                              color: Colors.white, size: 16),
                           SizedBox(width: 8),
                           Text(
                             'Dica: Mantenha-se hidratada hoje.',
@@ -189,22 +209,29 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         ),
                         child: Text(
                           '${day.day}',
-                          style: TextStyle(color: color.withOpacity(1.0).withBlue(50).withRed(50), fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              color: color
+                                  .withOpacity(1.0)
+                                  .withBlue(50)
+                                  .withRed(50),
+                              fontWeight: FontWeight.bold),
                         ),
                       );
                     },
                   ),
-                  calendarStyle: CalendarStyle(
-                    todayDecoration: const BoxDecoration(
+                  calendarStyle: const CalendarStyle(
+                    todayDecoration: BoxDecoration(
                       color: AppColors.interactionHover,
                       shape: BoxShape.circle,
                     ),
-                    todayTextStyle: const TextStyle(color: AppColors.primaryHighlight, fontWeight: FontWeight.bold),
-                    selectedDecoration: const BoxDecoration(
+                    todayTextStyle: TextStyle(
+                        color: AppColors.primaryHighlight,
+                        fontWeight: FontWeight.bold),
+                    selectedDecoration: BoxDecoration(
                       color: AppColors.primaryHighlight,
                       shape: BoxShape.circle,
                     ),
-                    markerDecoration: const BoxDecoration(
+                    markerDecoration: BoxDecoration(
                       color: AppColors.earthyHealth,
                       shape: BoxShape.circle,
                     ),
@@ -220,10 +247,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  _LegendItem(color: _getColorForPhase('Menstruação'), label: 'Menstruação'),
-                  _LegendItem(color: _getColorForPhase('Fase Folicular'), label: 'Folicular'),
-                  _LegendItem(color: _getColorForPhase('Ovulação'), label: 'Ovulação'),
-                  _LegendItem(color: _getColorForPhase('Fase Lútea'), label: 'Lútea'),
+                  _LegendItem(
+                      color: _getColorForPhase('Menstruação'),
+                      label: 'Menstruação'),
+                  _LegendItem(
+                      color: _getColorForPhase('Fase Folicular'),
+                      label: 'Folicular'),
+                  _LegendItem(
+                      color: _getColorForPhase('Ovulação'), label: 'Ovulação'),
+                  _LegendItem(
+                      color: _getColorForPhase('Fase Lútea'), label: 'Lútea'),
                 ],
               ),
               const SizedBox(height: 32),
@@ -231,10 +264,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
               // Registros Diários
               Text(
                 'Registros Diários',
-                style: Theme.of(context).textTheme.titleLarge?.copyWith(fontSize: 20),
+                style: Theme.of(context)
+                    .textTheme
+                    .titleLarge
+                    ?.copyWith(fontSize: 20),
               ),
               const SizedBox(height: 16),
-              
+
               _LogCard(
                 title: 'Sintomas e Humor',
                 subtitle: 'Como você está se sentindo?',
@@ -252,10 +288,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
               const SizedBox(height: 32),
               Text(
                 'Consultar Registros do Dia',
-                style: Theme.of(context).textTheme.titleLarge?.copyWith(fontSize: 20),
+                style: Theme.of(context)
+                    .textTheme
+                    .titleLarge
+                    ?.copyWith(fontSize: 20),
               ),
               const SizedBox(height: 16),
-              ...(_dailyLogs[DateFormat('yyyy-MM-dd').format(_selectedDay ?? DateTime.now())] ?? []).map((log) {
+              ...(_dailyLogs[DateFormat('yyyy-MM-dd')
+                          .format(_selectedDay ?? DateTime.now())] ??
+                      [])
+                  .map((log) {
                 return Container(
                   margin: const EdgeInsets.only(bottom: 8),
                   padding: const EdgeInsets.all(16),
@@ -266,9 +308,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   ),
                   child: Text(log, style: const TextStyle(fontSize: 14)),
                 );
-              }).toList(),
-              if ((_dailyLogs[DateFormat('yyyy-MM-dd').format(_selectedDay ?? DateTime.now())] ?? []).isEmpty)
-                const Text('Nenhum registro adicionado para este dia.', style: TextStyle(color: Colors.grey)),
+              }),
+              if ((_dailyLogs[DateFormat('yyyy-MM-dd')
+                          .format(_selectedDay ?? DateTime.now())] ??
+                      [])
+                  .isEmpty)
+                const Text('Nenhum registro adicionado para este dia.',
+                    style: TextStyle(color: Colors.grey)),
             ],
           ),
         ),
@@ -314,7 +360,9 @@ class _LogCard extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: isActive ? AppColors.primaryHighlight : AppColors.interactionHover,
+                color: isActive
+                    ? AppColors.primaryHighlight
+                    : AppColors.interactionHover,
                 shape: BoxShape.circle,
               ),
               child: Icon(
@@ -330,17 +378,24 @@ class _LogCard extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(fontSize: 16),
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleLarge
+                        ?.copyWith(fontSize: 16),
                   ),
                   const SizedBox(height: 4),
                   Text(
                     subtitle,
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 14),
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyMedium
+                        ?.copyWith(fontSize: 14),
                   ),
                 ],
               ),
             ),
-            Icon(Icons.add_circle_outline, color: AppColors.textSecondary.withOpacity(0.5)),
+            Icon(Icons.add_circle_outline,
+                color: AppColors.textSecondary.withOpacity(0.5)),
           ],
         ),
       ),

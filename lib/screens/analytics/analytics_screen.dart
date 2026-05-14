@@ -9,7 +9,8 @@ class AnalyticsScreen extends StatelessWidget {
       context: context,
       builder: (context) => AlertDialog(
         title: Text(title),
-        content: Text(description + '\n\n(Conteúdo detalhado do artigo será carregado aqui)'),
+        content: Text(
+            '$description\n\n(Conteúdo detalhado do artigo será carregado aqui)'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
@@ -31,17 +32,23 @@ class AnalyticsScreen extends StatelessWidget {
             children: [
               Text(
                 'Análises e Insights',
-                style: Theme.of(context).textTheme.displayLarge?.copyWith(fontSize: 24),
+                style: Theme.of(context)
+                    .textTheme
+                    .displayLarge
+                    ?.copyWith(fontSize: 24),
               ),
               const SizedBox(height: 24),
 
               // Estatísticas
               Text(
                 'Visão Geral do Ciclo',
-                style: Theme.of(context).textTheme.titleLarge?.copyWith(fontSize: 20),
+                style: Theme.of(context)
+                    .textTheme
+                    .titleLarge
+                    ?.copyWith(fontSize: 20),
               ),
               const SizedBox(height: 16),
-              Row(
+              const Row(
                 children: [
                   Expanded(
                     child: _StatCard(
@@ -52,7 +59,7 @@ class AnalyticsScreen extends StatelessWidget {
                       color: AppColors.secondaryCycle,
                     ),
                   ),
-                  const SizedBox(width: 16),
+                  SizedBox(width: 16),
                   Expanded(
                     child: Column(
                       children: [
@@ -62,7 +69,7 @@ class AnalyticsScreen extends StatelessWidget {
                           icon: Icons.arrow_upward,
                           color: AppColors.primaryHighlight,
                         ),
-                        const SizedBox(height: 16),
+                        SizedBox(height: 16),
                         _MiniStatCard(
                           title: 'Mais curto',
                           value: '26 dias',
@@ -82,31 +89,45 @@ class AnalyticsScreen extends StatelessWidget {
                 children: [
                   Text(
                     'Aprenda Mais',
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(fontSize: 20),
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleLarge
+                        ?.copyWith(fontSize: 20),
                   ),
                   TextButton(
                     onPressed: () {},
-                    child: const Text('Ver tudo', style: TextStyle(color: AppColors.primaryHighlight)),
+                    child: const Text('Ver tudo',
+                        style: TextStyle(color: AppColors.primaryHighlight)),
                   ),
                 ],
               ),
               const SizedBox(height: 16),
               _ArticleCard(
                 title: 'O que é a Fase Folicular?',
-                description: 'Entenda as mudanças no seu corpo após a menstruação.',
-                onTap: () => _showInfoDialog(context, 'O que é a Fase Folicular?', 'Entenda as mudanças no seu corpo após a menstruação.'),
+                description:
+                    'Entenda as mudanças no seu corpo após a menstruação.',
+                onTap: () => _showInfoDialog(
+                    context,
+                    'O que é a Fase Folicular?',
+                    'Entenda as mudanças no seu corpo após a menstruação.'),
               ),
               const SizedBox(height: 16),
               _ArticleCard(
                 title: 'Libido ao longo do ciclo',
-                description: 'Como as oscilações hormonais afetam o seu desejo.',
-                onTap: () => _showInfoDialog(context, 'Libido ao longo do ciclo', 'Como as oscilações hormonais afetam o seu desejo.'),
+                description:
+                    'Como as oscilações hormonais afetam o seu desejo.',
+                onTap: () => _showInfoDialog(
+                    context,
+                    'Libido ao longo do ciclo',
+                    'Como as oscilações hormonais afetam o seu desejo.'),
               ),
               const SizedBox(height: 16),
               _ArticleCard(
                 title: 'Lidando com Cólicas',
-                description: 'Dicas naturais e médicas para aliviar as dores menstruais.',
-                onTap: () => _showInfoDialog(context, 'Lidando com Cólicas', 'Dicas naturais e médicas para aliviar as dores menstruais.'),
+                description:
+                    'Dicas naturais e médicas para aliviar as dores menstruais.',
+                onTap: () => _showInfoDialog(context, 'Lidando com Cólicas',
+                    'Dicas naturais e médicas para aliviar as dores menstruais.'),
               ),
             ],
           ),
@@ -165,7 +186,10 @@ class _StatCard extends StatelessWidget {
                 children: [
                   Text(
                     value,
-                    style: const TextStyle(color: Colors.white, fontSize: 36, fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 36,
+                        fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(width: 4),
                   Text(
@@ -227,11 +251,17 @@ class _MiniStatCard extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 12),
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyMedium
+                      ?.copyWith(fontSize: 12),
                 ),
                 Text(
                   value,
-                  style: Theme.of(context).textTheme.titleLarge?.copyWith(fontSize: 14),
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleLarge
+                      ?.copyWith(fontSize: 14),
                 ),
               ],
             ),
@@ -269,43 +299,51 @@ class _ArticleCard extends StatelessWidget {
             ),
           ],
         ),
-      child: Row(
-        children: [
-          Container(
-            width: 100,
-            height: 100,
-            decoration: const BoxDecoration(
-              color: AppColors.primaryHighlight,
-              borderRadius: BorderRadius.only(topLeft: Radius.circular(24.0), bottomLeft: Radius.circular(24.0)),
+        child: Row(
+          children: [
+            Container(
+              width: 100,
+              height: 100,
+              decoration: const BoxDecoration(
+                color: AppColors.primaryHighlight,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(24.0),
+                    bottomLeft: Radius.circular(24.0)),
+              ),
+              child: const Icon(Icons.article, color: Colors.white, size: 40),
             ),
-            child: const Icon(Icons.article, color: Colors.white, size: 40),
-          ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(fontSize: 16),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    description,
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 12),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ],
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleLarge
+                          ?.copyWith(fontSize: 16),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      description,
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium
+                          ?.copyWith(fontSize: 12),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-    ),
-   );
+    );
   }
 }

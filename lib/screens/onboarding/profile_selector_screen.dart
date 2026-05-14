@@ -23,7 +23,10 @@ class ProfileSelectorScreen extends StatelessWidget {
             children: [
               Text(
                 'Qual é o seu\nmomento atual?',
-                style: Theme.of(context).textTheme.displayLarge?.copyWith(fontSize: 28),
+                style: Theme.of(context)
+                    .textTheme
+                    .displayLarge
+                    ?.copyWith(fontSize: 28),
               ),
               const SizedBox(height: 16),
               Text(
@@ -33,28 +36,28 @@ class ProfileSelectorScreen extends StatelessWidget {
               const SizedBox(height: 32),
               Expanded(
                 child: ListView(
-                  children: [
+                  children: const [
                     _ProfileCard(
                       title: 'Adolescente',
                       subtitle: 'Conhecendo meu corpo e ciclo',
                       icon: Icons.face,
                       profileType: UserProfileType.adolescente,
                     ),
-                    const SizedBox(height: 16),
+                    SizedBox(height: 16),
                     _ProfileCard(
                       title: 'Gestante',
                       subtitle: 'Acompanhando minha gravidez',
                       icon: Icons.pregnant_woman,
                       profileType: UserProfileType.gestante,
                     ),
-                    const SizedBox(height: 16),
+                    SizedBox(height: 16),
                     _ProfileCard(
                       title: 'Tentante',
                       subtitle: 'Planejando uma gravidez',
                       icon: Icons.child_care,
                       profileType: UserProfileType.tentante,
                     ),
-                    const SizedBox(height: 16),
+                    SizedBox(height: 16),
                     _ProfileCard(
                       title: 'Menopausa',
                       subtitle: 'Navegando por novas fases',
@@ -100,7 +103,9 @@ class _ProfileCard extends StatelessWidget {
       },
       child: Container(
         decoration: BoxDecoration(
-          color: isSelected ? AppColors.interactionHover : AppColors.cardBackground,
+          color: isSelected
+              ? AppColors.interactionHover
+              : AppColors.cardBackground,
           borderRadius: BorderRadius.circular(24.0),
           border: Border.all(
             color: isSelected ? AppColors.primaryHighlight : Colors.transparent,
@@ -120,7 +125,9 @@ class _ProfileCard extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: isSelected ? AppColors.primaryHighlight : AppColors.interactionHover,
+                color: isSelected
+                    ? AppColors.primaryHighlight
+                    : AppColors.interactionHover,
                 shape: BoxShape.circle,
               ),
               child: Icon(
@@ -136,7 +143,10 @@ class _ProfileCard extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(fontSize: 18),
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleLarge
+                        ?.copyWith(fontSize: 18),
                   ),
                   const SizedBox(height: 4),
                   Text(
