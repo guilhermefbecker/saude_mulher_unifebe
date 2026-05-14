@@ -12,6 +12,15 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final Set<String> _favorites = {};
+  String _searchQuery = '';
+  final List<String> _allCategories = [
+    'Saúde Menstrual',
+    'Gestação',
+    'Saúde Mental',
+    'Pré-natal',
+    'Câncer de Mama',
+    'Menopausa',
+  ];
 
   void _toggleFavorite(String category) {
     setState(() {
@@ -159,8 +168,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
               const SizedBox(height: 24),
-              const TextField(
-                decoration: InputDecoration(
+              TextField(
+                onChanged: (val) {
+                  setState(() {
+                    _searchQuery = val;
+                  });
+                },
+                decoration: const InputDecoration(
                   hintText: 'Buscar artigos, dicas...',
                   prefixIcon:
                       Icon(Icons.search, color: AppColors.primaryHighlight),
@@ -170,6 +184,30 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               const SizedBox(height: 24),
 
+              if (_searchQuery.isNotEmpty) ...[
+                Text(
+                  'Resultados para "$_searchQuery"',
+                  style: Theme.of(context).textTheme.titleLarge?.copyWith(fontSize: 20),
+                ),
+                const SizedBox(height: 16),
+                ..._allCategories
+                    .where((cat) => cat.toLowerCase().contains(_searchQuery.toLowerCase()))
+                    .map((cat) => Padding(
+                          padding: const EdgeInsets.only(bottom: 8.0),
+                          child: ListTile(
+                            tileColor: AppColors.cardBackground,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(16)),
+                            leading: Icon(_getIconForCategory(cat),
+                                color: AppColors.primaryHighlight),
+                            title: Text(cat),
+                            trailing: const Icon(Icons.chevron_right),
+                            onTap: () => _showCategoryInfo(context, cat),
+                          ),
+                        )).toList(),
+                if (_allCategories.where((cat) => cat.toLowerCase().contains(_searchQuery.toLowerCase())).isEmpty)
+                  const Text('Nenhum resultado encontrado.', style: TextStyle(color: Colors.grey)),
+              ] else ...[
               // Motivational Card
               Container(
                 padding: const EdgeInsets.all(24),
@@ -333,6 +371,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       () => _showCategoryInfo(context, 'Menopausa')),
                 ],
               ),
+              ],
             ],
           ),
         ),
